@@ -62,5 +62,21 @@ namespace BookReservesAPI.Controllers
             return BadRequest("Failed to update author info");
         }
 
+        [HttpDelete("Authors/{authorId}")]
+        public IActionResult DeleteAuthor(int authorId)
+        {
+            Author? author = _dataRepository.GetSingleAuthor(authorId);
+            if (author != null)
+            {
+                _dataRepository.RemoveEntity<Author>(author);
+                if (_dataRepository.SaveChanges())
+                {
+                    return Ok();
+                }
+            }
+            
+            return BadRequest("Failed to delete author");
+        }
+
     }
 }

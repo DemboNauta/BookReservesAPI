@@ -63,5 +63,21 @@ namespace BookReservesAPI.Controllers
             return BadRequest("Failed to update reservation");
         }
 
+        [HttpDelete("Reservations/{reservationId}")]
+        public IActionResult DeleteReservation(int reservationId)
+        {
+            Reservation? reservation = _dataRepository.GetSingleReservation(reservationId);
+            if (reservation != null)
+            {
+                _dataRepository.RemoveEntity<Reservation>(reservation);
+                if (_dataRepository.SaveChanges())
+                {
+                    return Ok();
+                }
+            }
+
+            return BadRequest("Failed to delete reservation");
+        }
+
     }
 }

@@ -66,6 +66,21 @@ namespace BookReservesAPI.Controllers
             }
             return BadRequest("Failed to update book info");
         }
+        [HttpDelete("Books/{bookId}")]
+        public IActionResult DeleteBook(int bookId)
+        {
+            Book? book = _dataRepository.GetSingleBook(bookId);
+            if (book != null)
+            {
+                _dataRepository.RemoveEntity<Book>(book);
+                if (_dataRepository.SaveChanges())
+                {
+                    return Ok();
+                }
+            }
+
+            return BadRequest("Failed to delete book");
+        }
 
     }
 }

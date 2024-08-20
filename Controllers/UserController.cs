@@ -63,5 +63,21 @@ namespace BookReservesAPI.Controllers
             }
             return BadRequest("Failed to Update User");
         }
+
+        [HttpDelete("Users/{userdId}")]
+        public IActionResult DeleteUser(int userdId)
+        {
+            User? user = _dataRepository.GetSingleUser(userdId);
+            if (user != null)
+            {
+                _dataRepository.RemoveEntity<User>(user);
+                if (_dataRepository.SaveChanges())
+                {
+                    return Ok();
+                }
+            }
+
+            return BadRequest("Failed to delete user");
+        }
     }
 }
