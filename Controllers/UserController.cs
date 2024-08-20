@@ -28,9 +28,15 @@ namespace BookReservesAPI.Controllers
         }
 
         [HttpGet("Users/{userId}")]
-        public User GetUser(int userId)
+        public IActionResult GetUser(int userId)
         {
-            return _dataRepository.GetSingleUser(userId);
+            var user = _dataRepository.GetSingleUser(userId);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            return Ok(user);
         }
 
         [HttpPost("Users")]
@@ -75,6 +81,10 @@ namespace BookReservesAPI.Controllers
                 {
                     return Ok();
                 }
+            }
+            else
+            {
+                return BadRequest("User not found");
             }
 
             return BadRequest("Failed to delete user");
