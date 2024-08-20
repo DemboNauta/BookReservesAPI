@@ -1,0 +1,6 @@
+@BookReservesAPI_HostAddress = http://localhost:5220
+
+GET {{BookReservesAPI_HostAddress}}/
+Accept: application/json
+
+###
