@@ -3,14 +3,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookReservesAPI.Data
 {
-    public class BookContext: DbContext
+    public class DataContext : DbContext
     {
         public readonly IConfiguration _config;
-        public BookContext(IConfiguration config) 
-        { 
+        public DataContext(IConfiguration config)
+        {
             _config = config;
         }
         public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Reservation> Reservations { get; set; }
+        public virtual DbSet<Author> Authors { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
